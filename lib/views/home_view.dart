@@ -170,7 +170,6 @@ class _HomeViewState extends State<HomeView> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          //FIX: PASS THE RIGHT TITLE DATA TO TEXT WIDGET
                                           Text(
                                             model.title,
                                             style: Theme.of(context)

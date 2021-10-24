@@ -5,10 +5,15 @@ import 'package:recipe_app/controller/bookmark_manager.dart';
 import 'package:recipe_app/model/recipe_model.dart';
 import 'package:recipe_app/views/video_player_view.dart';
 
-class DetialViewExample extends StatelessWidget {
+class DetialViewExample extends StatefulWidget {
   DetialViewExample({Key? key, required this.recipeModel}) : super(key: key);
   final RecipeModel recipeModel;
 
+  @override
+  State<DetialViewExample> createState() => _DetialViewExampleState();
+}
+
+class _DetialViewExampleState extends State<DetialViewExample> {
   BookmarkManager bookmarkManager = BookmarkManager();
 
   @override
@@ -20,7 +25,7 @@ class DetialViewExample extends StatelessWidget {
         child: Stack(
           children: [
             Image.network(
-              recipeModel.image,
+              widget.recipeModel.image,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
               fit: BoxFit.cover,
@@ -47,8 +52,8 @@ class DetialViewExample extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) =>
-                              VideoPlayerView(videoUrl: recipeModel.video),
+                          builder: (context) => VideoPlayerView(
+                              videoUrl: widget.recipeModel.video),
                         ),
                       );
                     },
@@ -87,7 +92,7 @@ class DetialViewExample extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          recipeModel.title,
+                          widget.recipeModel.title,
                           style: Theme.of(context)
                               .textTheme
                               .headline5!
@@ -96,7 +101,7 @@ class DetialViewExample extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              recipeModel.category,
+                              widget.recipeModel.category,
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                             const Spacer(),
@@ -108,7 +113,7 @@ class DetialViewExample extends StatelessWidget {
                               width: 5,
                             ),
                             Text(
-                              "${recipeModel.rate}",
+                              "${widget.recipeModel.rate}",
                               style: Theme.of(context).textTheme.bodyText1,
                             ),
                           ],
@@ -130,7 +135,7 @@ class DetialViewExample extends StatelessWidget {
                                   itemBuilder:
                                       (BuildContext context, int index) {
                                     Ingredent ingredent =
-                                        recipeModel.ingredents[index];
+                                        widget.recipeModel.ingredents[index];
                                     return Row(
                                       children: [
                                         Text(
@@ -154,7 +159,8 @@ class DetialViewExample extends StatelessWidget {
                                   separatorBuilder:
                                       (BuildContext context, int index) =>
                                           SizedBox(height: 7),
-                                  itemCount: recipeModel.ingredents.length)),
+                                  itemCount:
+                                      widget.recipeModel.ingredents.length)),
                         )
                       ],
                     ),
@@ -185,7 +191,7 @@ class DetialViewExample extends StatelessWidget {
                     ),
                     TextButton(
                       onPressed: () {
-                        bookmarkManager.addToBookMarks(recipeModel);
+                        bookmarkManager.addToBookMarks(widget.recipeModel);
                       },
                       child: const Padding(
                         padding: EdgeInsets.all(12.0),
